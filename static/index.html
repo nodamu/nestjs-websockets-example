@@ -29,6 +29,7 @@
         var app = new Vue({
             el: "#v-app",
             data: {
+                username : '',
                 text: '',
                 messages: [],
                 socket: {chat : null , alerts : null},
@@ -44,6 +45,8 @@
                 }
             },
             created() {
+                this.username = prompt('Enter your username: ');
+                
                 this.socket.chat = io("http://localhost:5000/chat");
                 this.socket.chat.on('chatToClient', (msg) => {
                     this.recieveChatMessage(msg);
