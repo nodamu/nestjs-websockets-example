@@ -19,7 +19,9 @@
         </form>
         <p>
             <ul>
-                <li v-for="msg of messages">{{ msg }}</li>
+                <li v-for="msg of messages">
+                    <strong> {{msg.sender}}: </strong> {{msg.message}}
+                </li>
             </ul>
         </p>
     </div>
@@ -28,13 +30,13 @@
             el: "#v-app",
             data: {
                 text: '',
-                messages: ['Some_message', 'Another_message'],
+                messages: [],
                 socket: {chat : null , alerts : null},
             },
 
             methods: {
                 sendChatMessage() {
-                    this.socket.chat.emit('chatToServer', this.text);
+                    this.socket.chat.emit('chatToServer', {sender: this.username, message: this.text});
                     this.text = "";
                 },
                 recieveChatMessage(msg) {
